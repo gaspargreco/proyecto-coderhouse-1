@@ -3,7 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Base</title>
+    <title>
+        {% block head_title %}BASE{% endblock head_title %}
+        Base
+
+    </title>
 </head>
 <body>
     <nav>
@@ -16,6 +20,6 @@
 
     </nav>
 
-    CONTENIDO BASE
+
 </body>
 </html>
