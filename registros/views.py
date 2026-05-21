@@ -26,7 +26,7 @@ def lista_dias(request):
 
 
 
-
+@login_required
 def registrar_peso(request):
     
     if request.method == "POST":
@@ -41,6 +41,7 @@ def registrar_peso(request):
         formulario = RegistroPesoForm()
     return render(request, "registros/crear_registro_peso.html", {"formulario": formulario})
 
+@login_required
 def registrar_dia_ejercicios(request):
     
     if request.method == "POST":
@@ -55,7 +56,7 @@ def registrar_dia_ejercicios(request):
         formulario = RegistroDiaEjerciciosForm()
     return render(request, "registros/crear_registro_dia_ejercicios.html", {"formulario": formulario})
 
-
+@login_required
 def registrar_basicos(request):
     if request.method == "POST":
         formulario = RegistroBasicosForm(request.POST)
@@ -69,23 +70,23 @@ def registrar_basicos(request):
         formulario = RegistroBasicosForm()
     return render(request, "registros/crear_registro_basicos.html", {"formulario": formulario})
 
-class ActualizarRegistroBasicos(UpdateView):
+class ActualizarRegistroBasicos(LoginRequiredMixin, UpdateView):
     model = RegistroEjerciciosBasicos
     fields = ["fecha", "press_banca", "sentadilla", "peso_muerto"]
     template_name = "registros/actualizar_registro_ejercicios.html"
     success_url = reverse_lazy("registros:listado_basicos")
 
-class EliminarRegistroBasicos(DeleteView):
+class EliminarRegistroBasicos(LoginRequiredMixin, DeleteView):
     model = RegistroEjerciciosBasicos
     template_name = "registros/eliminar_registro_basico.html"
     success_url = reverse_lazy("registros:listado_basicos")
 
-class EliminarRegistroPeso(DeleteView):
+class EliminarRegistroPeso(LoginRequiredMixin, DeleteView):
     model = RegistroPeso
     template_name = "registros/eliminar_registro_peso.html"
     success_url = reverse_lazy("registros:listado_peso")
 
-class EliminarRegistroDia(DeleteView):
+class EliminarRegistroDia(LoginRequiredMixin, DeleteView):
     model = RegistroDiaGimnasio
     template_name = "registros/eliminar_registro_dia.html"
     success_url = reverse_lazy("registros:listado_dia")

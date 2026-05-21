@@ -5,24 +5,94 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>
         {% block head_title %}BASE{% endblock head_title %}
-        Base
-
     </title>
+    
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            color: #333333;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav {
+            background-color: #ffffff;
+            border-bottom: 1px solid #dcdcdc;
+            padding: 15px 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #555555;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+
+        nav a:hover {
+            color: #000000;
+        }
+
+        .btn-salir {
+            background-color: #e4e6eb;
+            border: none;
+            color: #333;
+            font-weight: 600;
+            padding: 8px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-salir:hover {
+            background-color: #d8dadf;
+        }
+
+        .contenedor-principal {
+            max-width: 1000px;
+            margin: 40px auto;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+    </style>
 </head>
 <body>
-    hola como estas
     <nav>
         <ul>
             <li><a href="{% url 'inicio:inicio' %}">Inicio</a></li>
-            <li><a href="{% url 'inicio:gaspetita' %}">Gragas</a></li>
+            <li><a href="{% url 'inicio:gaspar' %}">Sobre Mi</a></li>
             <li><a href="{% url 'registros:listado' %}">Listado</a></li>
 
+            {% if request.user.is_authenticated %}
+                <li style="margin-left: auto;"><a href="{% url 'usuarios:perfil' %}">👤 {{ request.user.username }}</a></li>
+                <li>
+                    <form action="{% url 'usuarios:cerrar_sesion' %}" method="POST" style="margin: 0;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn-salir">Cerrar Sesión</button>
+                    </form>
+                </li>
+            {% else %}
+                <li style="margin-left: auto;"><a href="{% url 'usuarios:iniciar_sesion' %}">Ingresar</a></li>
+                <li><a href="{% url 'usuarios:registrar_usuario' %}">Registrarse</a></li>
+            {% endif %}
         </ul>
-
     </nav>
-    {% block contenido %}
-    contenido base
-    {% endblock contenido %}
 
+    <div class="contenedor-principal">
+        {% block contenido %}
+        {% endblock contenido %}
+    </div>
 </body>
 </html>

@@ -4,5 +4,5 @@ from django.http import HttpResponse
 def inicio(request):
     return render(request, "inicio/inicio.html")
 
-def gaspetita(request):
+def gaspar(request):
     return render(request, "inicio/gaspetita.html")
