@@ -1,0 +1,20 @@
+{% extends "menu.html" %}
+
+{% block head_title %}
+REGISTRAR PESO
+{% endblock head_title %}
+
+{% block contenido %}
+<h1>REGISTRAR PESO</h1>
+
+<form action="{% url "registros:registrar_peso" %}" method ="POST">
+
+    {% csrf_token %}
+
+    {{formulario}}
+
+
+    <input type="submit">
+</form>
+{% endblock contenido %}
+

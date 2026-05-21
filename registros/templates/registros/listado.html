@@ -1,0 +1,32 @@
+{% extends "menu.html" %}
+{% block head_title %}
+Listado Registros
+{% endblock head_title %}
+
+{% block contenido %}
+<h1>LISTADOS DE REGISTROS</h1>
+<a href="{% url "registros:registrar_peso" %}">Crear Registro de Peso</a>
+<a href="{% url "registros:registrar_dia_ejercicios" %}">Crear Registro de Día de Ejercicios</a>
+<a href="{% url "registros:registrar_basicos" %}">Crear Registro Básico</a>
+<ul>
+    {% for registro in registros  %}
+    <li>{{registro.fecha}} - {{registro.valor}} 
+        
+        
+    </li>
+    
+    {% endfor %}
+    {% for dia in registros_dia_ejercicios %}
+    <li>{{dia.fecha}} - {{dia.musculos1}}, {{dia.musculos2}}, {{dia.musculos3}}
+        
+    </li>
+    {% endfor %}
+
+    {% for ejercicio in registros_basicos %}
+    <li>{{ejercicio.fecha}} - {{ejercicio.press_banca}} - {{ejercicio.sentadilla}} - {{ejercicio.peso_muerto}}</li>
+        <a href="{% url "registros:actualizar_registro" ejercicio.id %}">Editar</a>
+    {% endfor %}
+</ul>
+{% endblock contenido %}
+
+

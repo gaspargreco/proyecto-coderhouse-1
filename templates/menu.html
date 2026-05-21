@@ -10,16 +10,19 @@
     </title>
 </head>
 <body>
+    hola como estas
     <nav>
         <ul>
             <li><a href="{% url 'inicio:inicio' %}">Inicio</a></li>
             <li><a href="{% url 'inicio:gaspetita' %}">Gragas</a></li>
-
+            <li><a href="{% url 'registros:listado' %}">Listado</a></li>
 
         </ul>
 
     </nav>
-
+    {% block contenido %}
+    contenido base
+    {% endblock contenido %}
 
 </body>
 </html>

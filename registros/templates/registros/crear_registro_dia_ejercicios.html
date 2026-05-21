@@ -1,0 +1,19 @@
+{% extends "menu.html" %}
+
+{% block head_title %}
+REGISTRAR DÍA DE EJERCICIOS
+{% endblock head_title %}
+
+{% block contenido %}
+<h1>REGISTRAR DÍA DE EJERCICIOS</h1>
+
+<form action="{% url "registros:registrar_dia_ejercicios" %}" method ="POST">
+
+    {% csrf_token %}
+
+    {{formulario}}
+
+
+    <input type="submit">
+</form>
+{% endblock contenido %}

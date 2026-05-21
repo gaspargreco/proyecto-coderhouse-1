@@ -1,0 +1,15 @@
+{% extends "menu.html" %}
+
+{% block head_title %}
+Actualizar Registro
+{% endblock head_title %}
+
+{% block contenido %}
+<h1>ACTUALIZAR REGISTRO</h1>
+<form action="" method ="POST">
+
+    {% csrf_token %}
+    {{form}}
+    <input type="submit" value = "Actualizar">
+</form>
+{% endblock contenido %}

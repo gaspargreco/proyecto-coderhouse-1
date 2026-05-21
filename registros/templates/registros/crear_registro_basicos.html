@@ -1,0 +1,19 @@
+{% extends "menu.html" %}
+
+{% block head_title %}
+REGISTRAR DÍA DE BASICOS
+{% endblock head_title %}
+
+{% block contenido %}
+<h1>REGISTRAR DÍA DE BASICOS</h1>
+
+<form action="{% url "registros:registrar_basicos" %}" method ="POST">
+
+    {% csrf_token %}
+
+    {{formulario}}
+
+
+    <input type="submit">
+</form>
+{% endblock contenido %}
