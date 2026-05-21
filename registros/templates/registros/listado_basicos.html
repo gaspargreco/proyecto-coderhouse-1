@@ -1,0 +1,20 @@
+{% extends "menu.html" %}
+{% block head_title %}
+Listado Registros
+{% endblock head_title %}
+
+{% block contenido %}
+<h1>LISTADOS DE REGISTROS</h1>
+
+<a href="{% url "registros:registrar_basicos" %}">Crear Registro Básico</a>
+<ul>
+
+    {% for basico in basicos %}
+    <li>{{basico.fecha}} - {{basico.press_banca}} - {{basico.sentadilla}} - {{basico.peso_muerto}}</li>
+        <a href="{% url "registros:actualizar_registro" basico.id %}">Editar</a>
+        <a href="{% url "registros:eliminar_registro_basicos" basico.id %}">Eliminar</a>
+    {% endfor %}
+</ul>
+{% endblock contenido %}
+
+

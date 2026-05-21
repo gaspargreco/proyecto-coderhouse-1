@@ -1,0 +1,22 @@
+{% extends "menu.html" %}
+
+{% block head_title %}
+Eliminar Registro Básico
+{% endblock head_title %}
+
+
+
+{% block contenido %}
+
+<h1>Eliminar Registro Básico</h1>
+
+<form action="" method="POST">
+    {% csrf_token %}
+    <p>¿Estás seguro de que deseas eliminar este registro básico?</p>
+    <input type="submit" value = "Confirmar">
+    
+</form>
+
+{% endblock contenido %}
+
+

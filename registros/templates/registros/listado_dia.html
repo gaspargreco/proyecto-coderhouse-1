@@ -1,0 +1,24 @@
+{% extends "menu.html" %}
+{% block head_title %}
+Listado Registros DE Ejercicio
+{% endblock head_title %}
+
+{% block contenido %}
+<h1>LISTADOS DE REGISTROS DE EJERCICIOS</h1>
+
+<a href="{% url "registros:registrar_dia_ejercicios" %}">Crear Registro de Día de Ejercicios</a>
+
+<ul>
+    
+    
+    
+    {% for dia in dias %}
+    <li>{{dia.fecha}} - {{dia.musculos1}}, {{dia.musculos2}}, {{dia.musculos3}}
+        <a href="{% url "registros:eliminar_registro_dia_ejercicios" dia.id %}">Eliminar</a>
+    </li>
+    {% endfor %}
+
+</ul>
+{% endblock contenido %}
+
+

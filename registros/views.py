@@ -1,20 +1,30 @@
 from django.shortcuts import render, redirect
-from registros.models import RegistroBasicos, RegistroDiaEjercicios, RegistroPeso
+from registros.models import RegistroEjerciciosBasicos, RegistroDiaGimnasio, RegistroPeso
 from django.views.generic.edit import DeleteView, UpdateView
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from registros.forms import RegistroPesoForm, RegistroDiaEjerciciosForm, RegistroBasicosForm
 
+def lista_registros(request):
+    return render(request, "registros/listado.html")
 
-def lista_registro(request):
+def lista_peso(request):
+
+    lista_pesos = RegistroPeso.objects.all()
+    return render(request,"registros/listado_peso.html", {"pesos": lista_pesos})
+
+def lista_basicos(request):
     
+    lista_basicos = RegistroEjerciciosBasicos.objects.all()
+    return render(request, "registros/listado_basicos.html", {"basicos": lista_basicos})
+
+def lista_dias(request):
     
-    registros_peso = RegistroPeso.objects.all()
-    registros_dia_ejercicios = RegistroDiaEjercicios.objects.all()
-    registros_basicos = RegistroBasicos.objects.all()
-    
-    return render(request,"registros/listado.html", {"registros": registros_peso, "registros_dia_ejercicios": registros_dia_ejercicios, "registros_basicos": registros_basicos})
+    lista_dia = RegistroDiaGimnasio.objects.all()
+    return render(request, "registros/listado_dia.html", {"dias": lista_dia})
+
+
 
 
 def registrar_peso(request):
@@ -38,7 +48,7 @@ def registrar_dia_ejercicios(request):
         
         if formulario.is_valid():
             info = formulario.cleaned_data
-            registro_dia_ejercicios = RegistroDiaEjercicios(fecha= info.get("fecha"), musculos1 = info.get("musculos1"), musculos2 = info.get("musculos2"), musculos3 = info.get("musculos3"))
+            registro_dia_ejercicios = RegistroDiaGimnasio(fecha= info.get("fecha"), musculos1 = info.get("musculos1"), musculos2 = info.get("musculos2"), musculos3 = info.get("musculos3"))
             registro_dia_ejercicios.save()
             return redirect("registros:listado")
     else:
@@ -52,7 +62,7 @@ def registrar_basicos(request):
         
         if formulario.is_valid():
             info = formulario.cleaned_data
-            registro_basicos = RegistroBasicos(fecha= info.get("fecha"), press_banca = info.get("press_banca"), sentadilla = info.get("sentadilla"), peso_muerto = info.get("peso_muerto"))
+            registro_basicos = RegistroEjerciciosBasicos(fecha= info.get("fecha"), press_banca = info.get("press_banca"), sentadilla = info.get("sentadilla"), peso_muerto = info.get("peso_muerto"))
             registro_basicos.save()
             return redirect("registros:listado")
     else:
@@ -60,8 +70,22 @@ def registrar_basicos(request):
     return render(request, "registros/crear_registro_basicos.html", {"formulario": formulario})
 
 class ActualizarRegistroBasicos(UpdateView):
-    model = RegistroBasicos
+    model = RegistroEjerciciosBasicos
     fields = ["fecha", "press_banca", "sentadilla", "peso_muerto"]
     template_name = "registros/actualizar_registro_ejercicios.html"
-    success_url = reverse_lazy("registros:listado")
-    
+    success_url = reverse_lazy("registros:listado_basicos")
+
+class EliminarRegistroBasicos(DeleteView):
+    model = RegistroEjerciciosBasicos
+    template_name = "registros/eliminar_registro_basico.html"
+    success_url = reverse_lazy("registros:listado_basicos")
+
+class EliminarRegistroPeso(DeleteView):
+    model = RegistroPeso
+    template_name = "registros/eliminar_registro_peso.html"
+    success_url = reverse_lazy("registros:listado_peso")
+
+class EliminarRegistroDia(DeleteView):
+    model = RegistroDiaGimnasio
+    template_name = "registros/eliminar_registro_dia.html"
+    success_url = reverse_lazy("registros:listado_dia")

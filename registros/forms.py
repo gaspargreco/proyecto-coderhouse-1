@@ -1,5 +1,5 @@
 from django import forms
-from registros.models import RegistroPeso, RegistroDiaEjercicios, RegistroBasicos
+from registros.models import RegistroPeso, RegistroDiaGimnasio, RegistroEjerciciosBasicos
 
 
 class RegistroPesoForm(forms.Form):

@@ -1,0 +1,20 @@
+{% extends "menu.html" %}
+{% block head_title %}
+Listado Registros de Peso
+{% endblock head_title %}
+
+{% block contenido %}
+<h1>LISTADOS DE REGISTROS PESO</h1>
+<a href="{% url "registros:registrar_peso" %}">Crear Registro de Peso</a>
+
+<ul>
+    {% for peso in pesos %}
+    <li>
+        {{peso.fecha}} - {{peso.valor}}
+        <a href="{% url "registros:eliminar_registro_peso" peso.id %}">Eliminar</a>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock contenido %}
+
+
